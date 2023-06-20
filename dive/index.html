@@ -22,8 +22,6 @@
         <div class="best-container">0</div>
       </div>
     </div>
-    <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  
-Tiles merge with their <strong>divisors</strong>.</p>
     <form method="post" name="gameModeForm" id="gameModeForm">
       <p class="game-intro">Seeds are: 
         <select id="gameModeSelect" name="gameModeSelect" onchange="changeGameMode()">
@@ -39,7 +37,12 @@ Tiles merge with their <strong>divisors</strong>.</p>
         </select>
       </p>
     </form>
-    <div class="currently-unlocked"></div>
+    <table style="width:100%">
+      <tr>
+        <td style="width:80%"><div class="currently-unlocked" style="width:97%"></div></td>
+        <td><div class="next-box"></div></td>
+      </tr>
+    </table>
 
     <div class="game-container">
       <div class="announcer"></div>
@@ -82,35 +85,38 @@ Tiles merge with their <strong>divisors</strong>.</p>
       </div>
     </div>
 
+    <hr>
+    <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  
+      Tiles merge with their <strong>divisors</strong>.</p>
     <p class="game-explanation">
       <strong class="important">How to play:</strong> Use your <strong>arrow keys</strong> or <strong>swipe</strong> to move the tiles (WASD and HJKL work too).  When two tiles touch, one of which divides the other, they <strong>merge into one, adding their values!</strong>
     </p>
-<p>
-When you make a new tile N, the game divides N by all current seeds, and the result is "unlocked" as a new seed if it is not 1.  These new seeds aren't actually always prime!  (Can you get a composite one?)
-</p>
+    <p>
+      When you make a new tile N, the game divides N by all current seeds, and the result is "unlocked" as a new seed if it is not 1.  These new seeds aren't actually always prime!  (Can you get a composite one?)
+    </p>
     <hr>
     <p>
-The basic lore of Threes variants, of which there are many (three cheers to <a href="https://github.com">github</a>!), is well known by now: the deluge was opened by <strong>2048</strong>, created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>, based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> which in turn was conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer</a>.
+      The basic lore of Threes variants, of which there are many (three cheers to <a href="https://github.com">github</a>!), is well known by now: the deluge was opened by <strong>2048</strong>, created by <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>, based on <a href="https://itunes.apple.com/us/app/1024!/id823499224" target="_blank">1024 by Veewo Studio</a> which in turn was conceptually similar to <a href="http://asherv.com/threes/" target="_blank">Threes by Asher Vollmer</a>.
     </p>
-<p>The basic idea of this variant was due to 
-<a href="https://www.google.com/+AllenKnutson">Allen Knutson</a>, 
-with design contributions also from <a href="http://000024.org">myself</a> and
-<a href="https://plus.google.com/+VynceMontgomery">Vynce Montgomery</a>.
-It was first implemented as 
-<a href="http://themoreyouknow.github.io/div/">DIV by TheMoreYouKnow</a>; 
-this version is a fork of theirs.
-</p>
-<p>The name "Dive" is 
-the historically most justified way to spell /d&#x26a;v/ 
-in English; compare "give", "live".</p>
-<div class="sharing">
+    <p>The basic idea of this variant was due to 
+      <a href="https://www.google.com/+AllenKnutson">Allen Knutson</a>, 
+      with design contributions also from <a href="http://000024.org">myself</a> and
+      <a href="https://plus.google.com/+VynceMontgomery">Vynce Montgomery</a>.
+      It was first implemented as 
+      <a href="http://themoreyouknow.github.io/div/">DIV by TheMoreYouKnow</a>; 
+      this version is a fork of theirs.
+    </p>
+    <p>The name "Dive" is 
+      the historically most justified way to spell /d&#x26a;v/ 
+      in English; compare "give", "live".</p>
+    <div class="sharing">
       <a href="https://twitter.com/share" class="twitter-share-button" data-text="Check out Dive, a Threes-like where you join numbers with their divisors! alexfink.github.io/dive" data-via="tmykgh">Tweet</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>    
       <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
       <g:plusone></g:plusone>
 
     <p>You can still donate to Gabriele Cirulli below, but <a href="http://asherv.com/threes/threemails/">consider
-whether</a> you wouldn't rather <a href="http://asherv.com/threes/">buy Threes</a>!</>
+      whether</a> you wouldn't rather <a href="http://asherv.com/threes/">buy Threes</a>!</>
       <form class="pp-donate" action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank">
         <input type="hidden" name="cmd" value="_s-xclick">
         <input type="hidden" name="hosted_button_id" value="W59BD72T97DVC">

@@ -61,7 +61,7 @@ h1.title {
   padding: 0;
   }
 
-.currently-unlocked {
+.currently-unlocked, .next-box {
   display: block; 
   height: 42.5px;
   line-height: 64.5px;
@@ -74,7 +74,7 @@ h1.title {
   padding: 25px 0 0 0;
 }
 
-.score-container, .best-container, .currently-unlocked {
+.score-container, .best-container, .currently-unlocked, .next-box {
   background: #bbada0;
   font-size: 25px;
   font-weight: bold;
@@ -86,7 +86,7 @@ h1.title {
 .score-container, .best-container {
   margin-left: 10px;
   display: inline-block; }
-  .score-container:after, .best-container:after, .currently-unlocked:after {
+  .score-container:after, .best-container:after, .currently-unlocked:after, .next-box:after {
     text-transform: uppercase;
     font-size: 13px;
     text-align: center;
@@ -123,6 +123,9 @@ h1.title {
   content: "All seeds seen"; 
 }
 .currently-unlocked .ghost { opacity: 0.25; }
+
+.next-box:after {
+  content: "Next"; }
 
 p {
   margin-top: 0;
@@ -829,7 +832,7 @@ hr {
     width: 280px;
     margin: 0 auto; }
 
-  .score-container, .best-container, .currently-unlocked {
+  .score-container, .best-container, .currently-unlocked, .next-box {
     margin-top: 0;
     min-width: 40px; }
 
@@ -1057,7 +1060,7 @@ hr {
   .tile.minitile .tilenumber.tile-small-6 {
     font-size: 8px !important; }
 
-  .score-container:after, .best-container:after, .currently-unlocked:after {
+  .score-container:after, .best-container:after, .currently-unlocked:after, .next-box:after {
     top: 6px;
     }
 

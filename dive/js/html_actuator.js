@@ -5,6 +5,7 @@ function HTMLActuator() {
   this.messageContainer = document.querySelector(".game-message");
   this.announcer        = document.querySelector(".announcer");
   this.currentlyUnlocked= document.querySelector(".currently-unlocked");
+  this.nextBoxContainer = document.querySelector(".next-box");
 
   this.score = 0;
   
@@ -232,6 +233,14 @@ HTMLActuator.prototype.updateCurrentlyUnlocked = function (list) {
   list.forEach(function (value) {
     self.currentlyUnlocked.appendChild(self.createMiniTile(value));
   });
+}
+
+HTMLActuator.prototype.updateNextBox = function (nextBox) {
+  this.nextBoxContainer.textContent = "";
+  this.clearContainer(this.nextBoxContainer);
+
+  var self = this;
+  self.nextBoxContainer.appendChild(self.createMiniTile(nextBox));
 }
 
 HTMLActuator.prototype.clearCurrentlyUnlocked = function () {

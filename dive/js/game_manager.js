@@ -29,7 +29,9 @@ GameManager.prototype.setup = function () {
     this.tileTypes = [2];
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
     this.tilesSeen = [2];
-  } 
+  }
+  this.nextBox = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
+  this.actuator.updateNextBox(this.nextBox);
 
   this.score        = 0;
   this.over         = false;
@@ -52,11 +54,26 @@ GameManager.prototype.addStartTiles = function () {
   }
 };
 
-// Adds a tile in a random position
+// Adds a random tile in a random position
 GameManager.prototype.addRandomTile = function () {
   if (this.grid.cellsAvailable()) {
     var value = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
     var tile = new Tile(this.grid.randomAvailableCell(), value);
+
+    this.grid.insertTile(tile);
+  }
+};
+
+// Puts a tile in the next box
+GameManager.prototype.updateNextBox = function () {
+  this.nextBox = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
+  this.actuator.updateNextBox(this.nextBox);
+};
+
+// Adds the next box tile in a random position
+GameManager.prototype.addNextTile = function () {
+  if (this.grid.cellsAvailable()) {
+    var tile = new Tile(this.grid.randomAvailableCell(), this.nextBox);
 
     this.grid.insertTile(tile);
   }
@@ -209,6 +226,10 @@ GameManager.prototype.move = function (direction) {
           }
         });
       });
+      for(var i = 0; i < self.tileTypes.length; i++) {
+        if (this.nextBox % self.tileTypes[i] == 0)
+          eliminatedIndices[i] = null;
+      }
           
       eliminatedIndices = eliminatedIndices.filter(function (x) {return x != null});
       if (eliminatedIndices.length) {
@@ -231,7 +252,8 @@ GameManager.prototype.move = function (direction) {
       self.actuator.updateCurrentlyUnlocked(self.tileTypes);
     } // mode 3
 
-    this.addRandomTile();
+    this.addNextTile();
+    this.updateNextBox();
 
     if (!this.movesAvailable()) { // Game over!
       if ((this.gameMode & 3) == 3)
