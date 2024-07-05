@@ -19,6 +19,8 @@ GameManager.prototype.restart = function () {
 };
 
 GameManager.prototype.changeBase = function () {
+  var baseSelect = document.baseForm.baseSelect;
+  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value)
   this.actuator.changeBase();
 };
 
