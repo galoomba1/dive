@@ -6,6 +6,9 @@ function HTMLActuator() {
   this.announcer        = document.querySelector(".announcer");
   this.currentlyUnlocked= document.querySelector(".currently-unlocked");
   this.nextBoxContainer = document.querySelector(".next-box");
+  var select = document.baseForm.baseSelect;
+  this.base             = +(select.options[select.selectedIndex].value);
+  console.log(this.base);
 
   this.score = 0;
   
@@ -40,6 +43,11 @@ HTMLActuator.prototype.actuate = function (grid, metadata) {
 HTMLActuator.prototype.restart = function () {
   this.clearMessage();
   this.clearCurrentlyUnlocked();
+};
+
+HTMLActuator.prototype.changeBase = function () {
+  var select = document.baseForm.baseSelect;
+  this.base             = +(select.options[select.selectedIndex].value);
 };
 
 HTMLActuator.prototype.clearContainer = function (container) {
@@ -99,7 +107,22 @@ HTMLActuator.prototype.createTile = function (tile, animate) {
   var tileNumber = document.createElement("div");
   var tileNumberClasses = animatedClasses.slice(0);
   tileNumberClasses.push("tilenumber");
-  var contentLength = String(tile.value).length;
+
+  if (this.base == 10 || tile.value == 0) {
+    var number = String(tile.value);
+  }
+  else {
+    var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    var n = tile.value;
+    var number = "";
+    while (n > 0) {
+      var next = n % this.base;
+      number = digits[next] + number;
+      n = (n - next) / this.base;
+    }
+  }
+
+  var contentLength = number.length;
   if (contentLength > 2) {
     if (contentLength > 6) {
       contentLength = 6;
@@ -107,7 +130,7 @@ HTMLActuator.prototype.createTile = function (tile, animate) {
     tileNumberClasses.push("tile-small-" + contentLength);
   }
   this.applyClasses(tileNumber, tileNumberClasses);
-  tileNumber.textContent = tile.value;
+  tileNumber.textContent = number;
   element.appendChild(tileNumber);
 
   this.overlayPrimes.forEach(function (p) {

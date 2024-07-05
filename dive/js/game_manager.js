@@ -18,19 +18,33 @@ GameManager.prototype.restart = function () {
   this.setup();
 };
 
+GameManager.prototype.changeBase = function () {
+  this.actuator.changeBase();
+};
+
 // Set up the game
 GameManager.prototype.setup = function () {
   this.grid         = new Grid(this.size);
 
   var select = document.gameModeForm.gameModeSelect;
   this.gameMode     = +(select.options[select.selectedIndex].value);
+  var nbSelect = document.nextBoxForm.nextBoxSelect;
+  this.hasNextBox   = +(nbSelect.options[nbSelect.selectedIndex].value)
+  var baseSelect = document.baseForm.baseSelect;
+  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value)
+
   this.tileTypes = [2,3,5,7];
   if (this.gameMode & 1) {
     this.tileTypes = [2];
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
     this.tilesSeen = [2];
   }
-  this.nextBox = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
+  if (this.hasNextBox) {
+    this.nextBox = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
+  }
+  else {
+    this.nextBox = 0;
+  }
   this.actuator.updateNextBox(this.nextBox);
 
   this.score        = 0;
@@ -200,9 +214,29 @@ GameManager.prototype.move = function (direction) {
       var verb = " unlocked!";
       if (newPrimes.filter(function(x){return x > ominosityBound}).length)
         verb = " unleashed!";
-      var list = String(newPrimes.pop());
-      if (newPrimes.length) {
-        list = newPrimes.join(", ") + " and " + list;
+
+      newPrimesDisplay = [];
+      for (i in newPrimes) {
+        var prime = newPrimes[i];
+        if (this.base == 10 || prime == 0) {
+          var number = String(prime);
+        }
+        else {
+          var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+          var n = prime;
+          var number = "";
+          while (n > 0) {
+            var next = n % this.base;
+            number = digits[next] + number;
+            n = (n - next) / this.base;
+          }
+        }
+        newPrimesDisplay.push(number);
+      }
+
+      var list = newPrimesDisplay.pop();
+      if (newPrimesDisplay.length) {
+        list = newPrimesDisplay.join(", ") + " and " + list;
       }
       self.actuator.announce(list + verb);
       self.actuator.updateCurrentlyUnlocked(self.tileTypes);
@@ -239,9 +273,29 @@ GameManager.prototype.move = function (direction) {
         var verb = " eliminated!"
         if (eliminatedPrimes.filter(function(x){return x > ominosityBound}).length)
           verb = " vanquished!";
-        var list = String(eliminatedPrimes.pop());
-        if (eliminatedPrimes.length) {
-          list = eliminatedPrimes.join(", ") + " and " + list;
+
+        elimPrimesDisplay = [];
+        for (i in eliminatedPrimes) {
+          var prime = eliminatedPrimes[i];
+          if (this.base == 10 || prime == 0) {
+            var number = String(prime);
+          }
+          else {
+            var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            var n = prime;
+            var number = "";
+            while (n > 0) {
+              var next = n % this.base;
+              number = digits[next] + number;
+              n = (n - next) / this.base;
+            }
+          }
+          elimPrimesDisplay.push(number);
+        }
+
+        var list = String(elimPrimesDisplay.pop());
+        if (elimPrimesDisplay.length) {
+          list = elimPrimesDisplay.join(", ") + " and " + list;
         }
         self.actuator.announce(list + verb);
         self.actuator.updateCurrentlyUnlocked(self.tileTypes);
@@ -252,8 +306,13 @@ GameManager.prototype.move = function (direction) {
       self.actuator.updateCurrentlyUnlocked(self.tileTypes);
     } // mode 3
 
-    this.addNextTile();
-    this.updateNextBox();
+    if (this.hasNextBox) {
+      this.addNextTile();
+      this.updateNextBox();
+    }
+    else {
+      this.addRandomTile();
+    }
 
     if (!this.movesAvailable()) { // Game over!
       if ((this.gameMode & 3) == 3)

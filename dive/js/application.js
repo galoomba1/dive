@@ -9,3 +9,15 @@ function changeGameMode() {
     return;
   game.restart();
 }
+
+function toggleNextBox() {
+  if (game == null)
+    return;
+  game.restart();
+}
+
+function changeBase() {
+  if (game == null)
+    return;
+  game.changeBase();
+}

@@ -22,21 +22,6 @@
         <div class="best-container">0</div>
       </div>
     </div>
-    <form method="post" name="gameModeForm" id="gameModeForm">
-      <p class="game-intro">Seeds are: 
-        <select id="gameModeSelect" name="gameModeSelect" onchange="changeGameMode()">
-          <option value="0">
-            2, 3, 5 and 7
-          </option>
-          <option value="1">
-            any "prime" factor of a tile ever created
-          </option>
-          <option value="3" selected="selected">
-            any "prime" factor of a tile on the board now
-          </option>
-        </select>
-      </p>
-    </form>
     <table style="width:100%">
       <tr>
         <td style="width:80%"><div class="currently-unlocked" style="width:97%"></div></td>
@@ -84,6 +69,46 @@
 
       </div>
     </div>
+
+    <form method="post" name="gameModeForm" id="gameModeForm">
+      <p class="game-intro">Seeds are: 
+        <select id="gameModeSelect" name="gameModeSelect" onchange="changeGameMode()">
+          <option value="0">
+            2, 3, 5 and 7
+          </option>
+          <option value="1">
+            any "prime" factor of a tile ever created
+          </option>
+          <option value="3" selected="selected">
+            any "prime" factor of a tile on the board now
+          </option>
+        </select>
+      </p>
+    </form>
+    <form method="post" name="baseForm" id="baseForm">
+      <p class="game-intro">Base:
+        <select id="baseSelect" name="baseSelect" onchange="changeBase()">
+          <option value="10" selected="selected">
+            decimal
+          </option>
+          <option value="16">
+            hex
+          </option>
+        </select>
+      </p>
+    </form>
+    <form method="post" name="nextBoxForm" id="nextBoxForm">
+      <p class="game-intro">Next box 
+        <select id="nextBoxSelect" name="nextBoxSelect" onchange="toggleNextBox()">
+          <option value="0">
+            off
+          </option>
+          <option value="1" selected="selected">
+            on
+          </option>
+        </select>
+      </p>
+    </form>
 
     <hr>
     <p class="game-intro">Dive is a Threes-like game blending additive and multiplicative number theory.  
