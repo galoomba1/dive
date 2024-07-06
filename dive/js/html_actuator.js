@@ -108,7 +108,10 @@ HTMLActuator.prototype.createTile = function (tile, animate) {
   var tileNumberClasses = animatedClasses.slice(0);
   tileNumberClasses.push("tilenumber");
 
-  if (this.base == 10 || tile.value == 0) {
+  if (this.base == 0) {
+    var number = "";
+  }
+  else if (this.base == 10 || tile.value == 0) {
     var number = String(tile.value);
   }
   else {

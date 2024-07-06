@@ -22,6 +22,7 @@ GameManager.prototype.changeBase = function () {
   var baseSelect = document.baseForm.baseSelect;
   this.base   = +(baseSelect.options[baseSelect.selectedIndex].value)
   this.actuator.changeBase();
+  this.actuate();
 };
 
 // Set up the game
@@ -223,6 +224,9 @@ GameManager.prototype.move = function (direction) {
         if (this.base == 10 || prime == 0) {
           var number = String(prime);
         }
+        else if (this.base == 0) {
+          var number = "?";
+        }
         else {
           var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
           var n = prime;
@@ -283,6 +287,9 @@ GameManager.prototype.move = function (direction) {
           var prime = eliminatedPrimes[i];
           if (this.base == 10 || prime == 0) {
             var number = String(prime);
+          }
+          else if (this.base == 0) {
+            var number = "?";
           }
           else {
             var digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
