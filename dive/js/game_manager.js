@@ -262,9 +262,11 @@ GameManager.prototype.move = function (direction) {
           }
         });
       });
-      for(var i = 0; i < self.tileTypes.length; i++) {
-        if (this.nextBox % self.tileTypes[i] == 0)
-          eliminatedIndices[i] = null;
+      if (self.hasNextBox) {
+        for(var i = 0; i < self.tileTypes.length; i++) {
+          if (this.nextBox % self.tileTypes[i] == 0)
+            eliminatedIndices[i] = null;
+        }
       }
           
       eliminatedIndices = eliminatedIndices.filter(function (x) {return x != null});
