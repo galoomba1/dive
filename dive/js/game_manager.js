@@ -20,7 +20,7 @@ GameManager.prototype.restart = function () {
 
 GameManager.prototype.changeBase = function () {
   var baseSelect = document.baseForm.baseSelect;
-  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value)
+  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value);
   this.actuator.changeBase();
   this.actuate();
 };
@@ -32,15 +32,17 @@ GameManager.prototype.setup = function () {
   var select = document.gameModeForm.gameModeSelect;
   this.gameMode     = +(select.options[select.selectedIndex].value);
   var nbSelect = document.nextBoxForm.nextBoxSelect;
-  this.hasNextBox   = +(nbSelect.options[nbSelect.selectedIndex].value)
+  this.hasNextBox   = +(nbSelect.options[nbSelect.selectedIndex].value);
   var baseSelect = document.baseForm.baseSelect;
-  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value)
+  this.base   = +(baseSelect.options[baseSelect.selectedIndex].value);
+  var startingSeedSelect = document.startingSeedForm.startingSeedSelect;
+  this.startingSeed   = +(startingSeedSelect.options[startingSeedSelect.selectedIndex].value);
 
   this.tileTypes = [2,3,5,7];
   if (this.gameMode & 1) {
-    this.tileTypes = [2];
+    this.tileTypes = [this.startingSeed];
     this.actuator.updateCurrentlyUnlocked(this.tileTypes);
-    this.tilesSeen = [2];
+    this.tilesSeen = [this.startingSeed];
   }
   if (this.hasNextBox) {
     this.nextBox = this.tileTypes[Math.floor(Math.random() * this.tileTypes.length)];
@@ -55,7 +57,7 @@ GameManager.prototype.setup = function () {
   this.won          = false;
 
   // Set game mode for best score
-  this.scoreManager.setGameMode(this.gameMode);
+  this.scoreManager.setGameMode((this.gameMode, this.startingSeed));
 
   // Add the initial tiles
   this.addStartTiles();
@@ -346,7 +348,7 @@ GameManager.prototype.div = function (next, cur) {
 GameManager.prototype.extractPrimesFrom = function(n, i) {
   if (i >= this.tileTypes.length) return n;
   var min = this.extractPrimesFrom(n, i+1);
-  while (n % this.tileTypes[i] == 0) {
+  while (n % this.tileTypes[i] == 0 && this.tileTypes[i] > 1) {
     n /= this.tileTypes[i];
     var comparandum = this.extractPrimesFrom(n, i+1);
     if (comparandum < min)

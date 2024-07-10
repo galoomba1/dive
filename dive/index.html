@@ -85,6 +85,18 @@
         </select>
       </p>
     </form>
+    <form method="post" name="startingSeedForm" id="startingSeedForm">
+      <p class="game-intro">Starting seed is: 
+        <select id="startingSeedSelect" name="startingSeedSelect" onchange="changeStartingSeed()">
+          <option value="1">
+            1
+          </option>
+          <option value="2" selected="selected">
+            2
+          </option>
+        </select>
+      </p>
+    </form>
     <form method="post" name="baseForm" id="baseForm">
       <p class="game-intro">Base:
         <select id="baseSelect" name="baseSelect" onchange="changeBase()">

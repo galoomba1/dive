@@ -16,6 +16,12 @@ function toggleNextBox() {
   game.restart();
 }
 
+function changeStartingSeed() {
+  if (game == null)
+    return;
+  game.restart();
+}
+
 function changeBase() {
   if (game == null)
     return;
